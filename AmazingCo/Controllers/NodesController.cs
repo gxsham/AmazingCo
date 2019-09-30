@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AmazingCo.Models;
 using AmazingCo.Business;
-using AmazingCo.Middlewares;
-using System.Net;
 
 namespace AmazingCo.Controllers
 {
@@ -32,9 +30,9 @@ namespace AmazingCo.Controllers
             {
                 if (!await _business.NodeExists(parentId))
                 {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, Format(parentId, ex));
+                    return NotFound($"Node with id: {parentId} not found.");
                 }
-                throw ex;
+                return BadRequest(ex);
             }
         }
 
@@ -49,20 +47,17 @@ namespace AmazingCo.Controllers
             {
                 if (!await _business.NodeExists(id))
                 {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, Format(id, ex));
+                    return NotFound($"Node with id: {id} not found.");
                 }
                 if (!await _business.NodeExists(parentId))
                 {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, Format(id, ex));
+                    return NotFound($"Node with id: {parentId} not found.");
                 }
+
+                return BadRequest(ex);
             }
 
             return NoContent();
-        }
-
-        private string Format(string id, Exception exception)
-        {
-            return $"NodeId: {id}, Message: {exception.Message}";
         }
     }
 }

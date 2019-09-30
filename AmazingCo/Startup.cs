@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using AmazingCo.Data;
 using AmazingCo.Business;
-using AmazingCo.Middlewares;
 
 namespace AmazingCo
 {
@@ -42,7 +41,7 @@ namespace AmazingCo
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseMiddleware<ExceptionMiddleware>();
+
             app.UseMvc();
 
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
