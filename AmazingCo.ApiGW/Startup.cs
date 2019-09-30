@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using AmazingCo.ApiGW.Clients;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +27,11 @@ namespace AmazingCo.ApiGW
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "AmazingCo API", Version = "v1" });
+            });
+
+            services.AddHttpClient<INodeClient, NodeClient>(client =>
+            {
+                client.BaseAddress = new Uri(Configuration["nodeBaseUrl"]);
             });
         }
 
