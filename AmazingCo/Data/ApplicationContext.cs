@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
 using AmazingCo.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AmazingCo.Data
 {
@@ -14,6 +15,11 @@ namespace AmazingCo.Data
 
         public void Seed()
         {
+            if (Nodes.Any())
+            {
+                return;
+            }
+
             var rootId = "root";
             var root = new Node
             {
