@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  amazingco.apigw:
+    image: ${DOCKER_REGISTRY-}amazingcoapigw
+    build:
+      context: .
+      dockerfile: AmazingCo.ApiGW/Dockerfile
+
+  amazingco:
+    image: ${DOCKER_REGISTRY-}amazingco
+    build:
+      context: .
+      dockerfile: AmazingCo/Dockerfile
+

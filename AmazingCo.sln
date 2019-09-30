@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmazingCo", "AmazingCo\Amaz
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmazingCo.ApiGW", "AmazingCo.ApiGW\AmazingCo.ApiGW.csproj", "{4BAC3B28-6C1E-4EA4-A98B-B2F05F8425C2}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DE323B70-CB18-4C5D-A6A0-54E37222565C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4BAC3B28-6C1E-4EA4-A98B-B2F05F8425C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BAC3B28-6C1E-4EA4-A98B-B2F05F8425C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BAC3B28-6C1E-4EA4-A98B-B2F05F8425C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE323B70-CB18-4C5D-A6A0-54E37222565C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE323B70-CB18-4C5D-A6A0-54E37222565C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE323B70-CB18-4C5D-A6A0-54E37222565C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE323B70-CB18-4C5D-A6A0-54E37222565C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
