@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
+using AmazingCo.Data;
+using AmazingCo.Business;
+using AmazingCo.Middlewares;
 
 namespace AmazingCo
 {
@@ -25,6 +23,16 @@ namespace AmazingCo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //Data layer
+            services.AddScoped<IRepository, Repository>();
+
+            //Add Business Layer
+            services.AddScoped<INodeBusiness, NodeBusiness>();
+            services.AddSingleton<IBackgroundWorker, BackgroundWorker>();
+
+            services.AddDbContext<ApplicationContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ApplicationContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,8 +42,15 @@ namespace AmazingCo
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseMvc();
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            using (var context = serviceScope.ServiceProvider.GetService<ApplicationContext>())
+            {
+                context.Database.Migrate();
+                context.Seed();
+            }
         }
     }
 }
