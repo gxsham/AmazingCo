@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmazingCo", "AmazingCo\AmazingCo.csproj", "{7579D954-3BB0-4192-B7DE-DAEFC10C79BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmazingCo", "AmazingCo\AmazingCo.csproj", "{7579D954-3BB0-4192-B7DE-DAEFC10C79BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmazingCo.ApiGW", "AmazingCo.ApiGW\AmazingCo.ApiGW.csproj", "{4BAC3B28-6C1E-4EA4-A98B-B2F05F8425C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7579D954-3BB0-4192-B7DE-DAEFC10C79BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7579D954-3BB0-4192-B7DE-DAEFC10C79BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7579D954-3BB0-4192-B7DE-DAEFC10C79BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BAC3B28-6C1E-4EA4-A98B-B2F05F8425C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BAC3B28-6C1E-4EA4-A98B-B2F05F8425C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BAC3B28-6C1E-4EA4-A98B-B2F05F8425C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BAC3B28-6C1E-4EA4-A98B-B2F05F8425C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
