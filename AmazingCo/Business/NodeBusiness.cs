@@ -19,11 +19,6 @@ namespace AmazingCo.Business
         }
         public async Task ChangeParentAsync(string nodeId, string newParentId)
         {
-            if (nodeId == newParentId)
-            {
-                return;
-            }
-
             var node = await _repository.GetAsync(nodeId);
             if (node == null)
             {
@@ -34,6 +29,11 @@ namespace AmazingCo.Business
             if (parent == null)
             {
                 throw new ArgumentException(nameof(node));
+            }
+
+            if (nodeId == newParentId)
+            {
+                return;
             }
 
             //handling situation when there is a new root node

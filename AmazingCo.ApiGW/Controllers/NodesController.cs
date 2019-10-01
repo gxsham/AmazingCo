@@ -26,9 +26,9 @@ namespace AmazingCo.ApiGW.Controllers
             if (response.IsSuccessStatusCode)
             {
                 return Ok(JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync()));
-            } 
+            }
             
-            return BadRequest(JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync()));
+            return StatusCode((int)response.StatusCode);
         }
         
         [HttpPut("{id}")]
@@ -44,7 +44,7 @@ namespace AmazingCo.ApiGW.Controllers
                 return NoContent();
             }
 
-            return BadRequest(JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync()));
+            return StatusCode((int)response.StatusCode);
         }
     }
 }

@@ -77,30 +77,22 @@ namespace AmazingCo.Data
                     await GetNodes(fullList, item.Id);
                 }
             }
-            return; 
+            return;
         }
 
         public Task SaveAsync(Node node)
         {
-            try
-            {
-                _context.Entry(node).State = EntityState.Modified;
-                return _context.SaveChangesAsync();
+            _context.Entry(node).State = EntityState.Modified;
+            return _context.SaveChangesAsync();
 
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
         }
 
         public Task BulkSaveAsync(IEnumerable<Node> nodes)
         {
-                foreach (var node in nodes)
-                {
-                    _context.Entry(node).State = EntityState.Modified;
-                }
+            foreach (var node in nodes)
+            {
+                _context.Entry(node).State = EntityState.Modified;
+            }
 
             return _context.SaveChangesAsync();
         }
