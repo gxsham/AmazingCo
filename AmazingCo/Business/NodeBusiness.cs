@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using AmazingCo.Data;
 using AmazingCo.Models;
+using AmazingCo.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AmazingCo.Business
 {
@@ -18,15 +19,40 @@ namespace AmazingCo.Business
         }
         public async Task ChangeParentAsync(string nodeId, string newParentId)
         {
+            if (nodeId == newParentId)
+            {
+                return;
+            }
+
             var node = await _repository.GetAsync(nodeId);
+            if (node == null)
+            {
+                throw new ArgumentException(nameof(node));
+            }
+
             var parent = await _repository.GetAsync(newParentId);
-            node.ParentId = parent.Id;
-            var heightDiff = node.Height - parent.Height - 1;
-            node.Height = parent.Height + 1;
+            if (parent == null)
+            {
+                throw new ArgumentException(nameof(node));
+            }
 
-            await _repository.SaveAsync(node);
+            //handling situation when there is a new root node
+            if (node.ParentId == null)
+            {
+                var children = await _repository.GetAsync(x => x.ParentId == node.Id).ToListAsync();
+                if (children.Count != 1)
+                {
+                    throw new ArgumentException($"Root should have only one child to be replaced.");
+                }
 
-            Task.Run(async () => await _worker.PropagateChanges(node, heightDiff));
+                var newRoot = children.First();
+
+                Task.Run(async () => await _worker.ChangeRoot(newRoot, node, parent));
+            }
+            else
+            {
+                Task.Run(async () => await _worker.PropagateChanges(node, parent));
+            }
         }
 
         public IQueryable<Node> GetChildren(string parentId)

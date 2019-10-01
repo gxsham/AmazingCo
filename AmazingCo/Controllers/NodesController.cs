@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AmazingCo.Models;
 using AmazingCo.Business;
+using AmazingCo.Models;
 
 namespace AmazingCo.Controllers
 {
@@ -26,13 +26,13 @@ namespace AmazingCo.Controllers
             {
                 return await _business.GetChildren(parentId).ToListAsync();
             }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
             catch (Exception ex)
             {
-                if (!await _business.NodeExists(parentId))
-                {
-                    return NotFound($"Node with id: {parentId} not found.");
-                }
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -43,18 +43,13 @@ namespace AmazingCo.Controllers
             {
                 await _business.ChangeParentAsync(id, parentId);
             }
+            catch(ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
             catch (Exception ex)
             {
-                if (!await _business.NodeExists(id))
-                {
-                    return NotFound($"Node with id: {id} not found.");
-                }
-                if (!await _business.NodeExists(parentId))
-                {
-                    return NotFound($"Node with id: {parentId} not found.");
-                }
-
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
 
             return NoContent();

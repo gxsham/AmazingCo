@@ -5,6 +5,7 @@ namespace AmazingCo.Business
 {
     public interface IBackgroundWorker
     {
-        Task PropagateChanges(Node node, int heightDifference);
+        Task PropagateChanges(Node node, Node parent);
+        Task ChangeRoot(Node root, Node node, Node parent);
     }
 }

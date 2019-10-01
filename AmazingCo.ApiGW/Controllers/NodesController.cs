@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AmazingCo.ApiGW.Clients;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace AmazingCo.ApiGW.Controllers
 {
@@ -24,10 +25,10 @@ namespace AmazingCo.ApiGW.Controllers
             var response = await _nodeClient.GetChildrenAsync(id);
             if (response.IsSuccessStatusCode)
             {
-                return Ok(await response.Content.ReadAsStringAsync());
+                return Ok(JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync()));
             } 
             
-            return BadRequest(response);
+            return BadRequest(JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync()));
         }
         
         [HttpPut("{id}")]
@@ -43,7 +44,7 @@ namespace AmazingCo.ApiGW.Controllers
                 return NoContent();
             }
 
-            return BadRequest(response);
+            return BadRequest(JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync()));
         }
     }
 }

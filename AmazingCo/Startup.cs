@@ -47,6 +47,7 @@ namespace AmazingCo
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             using (var context = serviceScope.ServiceProvider.GetService<ApplicationContext>())
             {
+                context.Database.EnsureDeleted();
                 context.Database.Migrate();
                 context.Seed();
             }
