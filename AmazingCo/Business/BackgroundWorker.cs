@@ -18,7 +18,6 @@ namespace AmazingCo.Business
 
         public async Task ChangeRoot(Node newRoot, Node node, Node parent)
         {
-
             using (var serviceScope = _scopeFactory.CreateScope())
             using (var context = serviceScope.ServiceProvider.GetService<ApplicationContext>())
             {

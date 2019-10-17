@@ -19,6 +19,15 @@ namespace AmazingCo.Business
         }
         public async Task ChangeParentAsync(string nodeId, string newParentId)
         {
+            if (nodeId == null)
+            {
+                throw new ArgumentNullException(nameof(nodeId));
+            }
+            if (newParentId == null)
+            {
+                throw new ArgumentNullException(nameof(newParentId));
+            }
+
             var node = await _repository.GetAsync(nodeId);
             if (node == null)
             {
@@ -28,7 +37,7 @@ namespace AmazingCo.Business
             var parent = await _repository.GetAsync(newParentId);
             if (parent == null)
             {
-                throw new ArgumentException(nameof(node));
+                throw new ArgumentException(nameof(parent));
             }
 
             if (nodeId == newParentId)
@@ -39,7 +48,7 @@ namespace AmazingCo.Business
             //handling situation when there is a new root node
             if (node.ParentId == null)
             {
-                var children = await _repository.GetAsync(x => x.ParentId == node.Id).ToListAsync();
+                var children = _repository.GetAsync(x => x.ParentId == node.Id).ToList();
                 if (children.Count != 1)
                 {
                     throw new ArgumentException($"Root should have only one child to be replaced.");
